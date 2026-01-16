@@ -5,7 +5,7 @@ import joblib
 from skimage.feature import hog
 import gzip
 import os
-import gdown
+
 
 knn=joblib.load("knn_pca_model.pkl")
 nb = joblib.load("naive_bayes_model.pkl")
