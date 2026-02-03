@@ -7,11 +7,13 @@ import gzip
 import os
 
 
-knn=joblib.load("knn_pca_model.pkl")
-nb = joblib.load("naive_bayes_model.pkl")
-dt = joblib.load("decision_tree_model.pkl")
+#knn=joblib.load("knn_pca_model.pkl")
+#nb = joblib.load("naive_bayes_model.pkl")
+#dt = joblib.load("decision_tree_model.pkl")
 scaler = joblib.load("scaler.pkl")
-
+svm=joblib.load("svm_model.pkl")
+#lr=joblib.load("logistic_regression_model.pkl")
+#rf=joblib.load("rf_model.pkl")
 # ---------------- FEATURE EXTRACTION ----------------
 def extract_features(image):
     img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -55,16 +57,21 @@ if uploaded_file is not None:
     features = extract_features(image)
     features = scaler.transform(features)
 
-    pred_knn = knn.predict(features)[0]
-    pred_nb = nb.predict(features)[0]
-    pred_dt = dt.predict(features)[0]
-
+    ##pred_knn = knn.predict(features)[0]
+    #pred_nb = nb.predict(features)[0]
+    #pred_dt = dt.predict(features)[0]
+    pred_svm=svm.predict(features)[0]
+    #pred_lr=lr.predict(features)[0]
+    #pred_rf=rf.predict(features)[0]
     label = {
         1: "DROWSY 😴",
         0: "NON-DROWSY 🙂"
     }
 
-    st.subheader("🔍 Model Predictions")
-    st.write(f"**KNN:** {label[pred_knn]}")
-    st.write(f"**Naive Bayes:** {label[pred_nb]}")
-    st.write(f"**Decision Tree:** {label[pred_dt]}")
+    st.subheader("🔍 Model Prediction")
+    #st.write(f"**KNN:** {label[pred_knn]}")
+    #st.write(f"**Naive Bayes:** {label[pred_nb]}")
+    #st.write(f"**Decision Tree:** {label[pred_dt]}")
+    st.write(f"**-->** {label[pred_svm]}")
+    #st.write(f"**Logistic regression:** {label[pred_lr]}")
+    #st.write(f"**random forest:** {label[pred_rf]}")
